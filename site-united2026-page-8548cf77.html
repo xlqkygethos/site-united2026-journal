@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界杯 知识库 · 查询对照与延伸阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f4f6;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', sans-serif;
+            color: #1f2a3a;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* 顶部窄标识 — 轻描淡写 */
+        .site-identity {
+            margin-bottom: 2.5rem;
+            text-align: left;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            color: #5b6b7c;
+            border-left: 3px solid #a0b8cc;
+            padding-left: 1rem;
+        }
+
+        .site-identity span {
+            font-weight: 400;
+        }
+
+        /* 主标题区 */
+        .hero {
+            margin-bottom: 2.8rem;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #142433;
+            margin-bottom: 0.6rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #3e4e5e;
+            max-width: 70%;
+        }
+
+        @media (max-width: 680px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                max-width: 100%;
+                font-size: 1rem;
+            }
+        }
+
+        /* 卡片通用设计 — 浅灰背景、细边框、柔和阴影 */
+        .card {
+            background: #ffffff;
+            border: 1px solid #dce2e9;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 10, 20, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+            padding: 1.8rem 2rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 18px rgba(0, 20, 30, 0.06);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #1a2b3c;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #e5ebf0;
+        }
+
+        /* 网格布局：目录感 */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 720px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* 说明区（左半） — 内文自然 */
+        .description-content p {
+            margin-bottom: 0.9rem;
+            font-size: 1rem;
+        }
+
+        .description-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .description-content a {
+            color: #1e5a7a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #b8cadb;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .description-content a:hover {
+            color: #0a3c55;
+            border-bottom: 1px solid #0a3c55;
+        }
+
+        /* 提示区（右半） */
+        .tip-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tip-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.6rem;
+            position: relative;
+            font-size: 0.98rem;
+            color: #253544;
+        }
+
+        .tip-list li::before {
+            content: "◈";
+            position: absolute;
+            left: 0;
+            color: #6e8ba5;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .tip-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-list strong {
+            font-weight: 550;
+            color: #173042;
+        }
+
+        /* 相关信息区 — 更像延伸阅读 / FAQ 摘要 */
+        .info-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 780px) {
+            .info-area {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid #dfe6ed;
+            border-radius: 14px;
+            padding: 1.5rem 1.5rem 1.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1b3142;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.01em;
+        }
+
+        .info-card p {
+            font-size: 0.95rem;
+            color: #314554;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-card .meta-note {
+            font-size: 0.82rem;
+            color: #687b8c;
+            border-top: 1px solid #e9eef3;
+            padding-top: 0.7rem;
+            margin-top: 0.2rem;
+        }
+
+        /* 内嵌链接处理（相关信息区内也可自然出现） */
+        .info-card a {
+            color: #1e5a7a;
+            text-decoration: none;
+            border-bottom: 1px dotted #b8cadb;
+            font-weight: 450;
+        }
+
+        .info-card a:hover {
+            border-bottom: 1px solid #1e5a7a;
+        }
+
+        /* 额外的分隔与脚注 */
+        .footnote-block {
+            border-top: 1px solid #dce2e9;
+            padding-top: 1.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #4c6072;
+        }
+
+        .footnote-block a {
+            color: #4c6072;
+            text-decoration: none;
+            border-bottom: 1px dotted #b3c3d3;
+        }
+
+        .footnote-block a:hover {
+            color: #1a2b3c;
+            border-bottom: 1px solid #1a2b3c;
+        }
+
+        .footnote-block .muted {
+            color: #7a8d9e;
+        }
+
+        /* 简单按钮/标签 — 仅用于视觉点缀 */
+        .label-tag {
+            display: inline-block;
+            background: #ecf1f6;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #3b5468;
+            letter-spacing: 0.02em;
+            border: 1px solid #d7e1ea;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #dce2e9;
+            margin: 1.8rem 0 1.2rem;
+        }
+
+        /* 响应式柔化 */
+        @media (max-width: 480px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .card {
+                padding: 1.3rem 1.2rem;
+            }
+            .info-card {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+
+    <!-- 轻量站点标识 -->
+    <div class="site-identity">
+        <span>site-united2026.com · 知识查询</span>
+    </div>
+
+    <!-- hero 区域 -->
+    <div class="hero">
+        <h1>世界杯·日常参考</h1>
+        <p>对照、延伸与背景阅读，围绕赛事结构与历史脉络，为日常查询提供一份温和的案头参考。</p>
+    </div>
+
+    <!-- 核心双卡片：说明区 + 提示区 -->
+    <div class="dashboard-grid">
+        <!-- 说明区 左 -->
+        <div class="card description-content">
+            <div class="card-title">说明 · 从查询到理解</div>
+            <p>这里并非新闻速递，也不试图替代官方资讯。我们更希望扮演一个安静的参照系——当你需要确认某届赛事的阶段安排、回顾某项规则的演变，或只是想了解一届<a href="https://site-united2026.com">世界杯</a>的场地分布时，可以随手翻阅这些整理过的条目。</p>
+            <p>内容取材于公开赛事文献，并经过结构化的筛选与比对。每个知识点都附有简短的上下文，便于你根据兴趣继续延伸。</p>
+            <p>信息密度保持克制，重点放在可查证、可对照的范围内。不追求独家，只在意清晰。</p>
+        </div>
+
+        <!-- 提示区 右 -->
+        <div class="card">
+            <div class="card-title">提示 · 查阅习惯</div>
+            <ul class="tip-list">
+                <li><strong>版本基准</strong> —— 所有数据以最近一届完整赛事为基准，过往修订会以括号附注。</li>
+                <li><strong>对照路径</strong> —— 如果你在查找某一届比赛的赛程或小组分组，建议先定位年份，再查看对应阶段。</li>
+                <li><strong>延伸阅读</strong> —— 每一条目末尾的「相关条目」可以作为跳板，帮助你横向对比不同主办地的办赛思路。</li>
+                <li><strong>时效说明</strong> —— 预选赛及抽签动态会随官方公告更新，但核心规则与历史沿革部分保持相对稳定。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 相关信息区 三列延伸 / FAQ 摘要 -->
+    <div class="info-area">
+        <div class="info-card">
+            <h3>赛事结构 · 简释</h3>
+            <p>从预选赛到决赛圈，通常历时三年左右。各大洲名额分配根据上一届表现及区域足球发展水平调整，具体数字会在抽签前半年左右确认。</p>
+            <p>决赛圈阶段包括小组赛与淘汰赛。小组赛每组四队，前两名晋级；淘汰赛从十六强开始，直至决赛。</p>
+            <div class="meta-note">⚽ 相关条目：赛程推演 · 轮次说明</div>
+        </div>
+        <div class="info-card">
+            <h3>常见查询 · 摘要</h3>
+            <p><strong>Q： 如何确认某支球队的历届最佳成绩？</strong><br>可在球队档案页面按届次筛选，半决赛及以上的轮次会单独高亮。部分早期赛事因赛制不同，会以脚注形式说明。</p>
+            <p><strong>Q： 主办国自动晋级资格是否一直存在？</strong><br>自1934年起，主办国自动获得决赛圈席位。不过2026年由三国联合主办，自动晋级名额的分配方式有所调整，<a href="https://site-united2026.com">世界杯</a>官方曾发布过说明。</p>
+        </div>
+        <div class="info-card">
+            <h3>延伸阅读方向</h3>
+            <p>如果你想了解不同年代的用球演变、奖杯设计迭代，或是主办城市的经济影响报告，可以参考以下话题标签：</p>
+            <p><span class="label-tag">#奖杯沿革</span> <span class="label-tag">#比赛用球</span> <span class="label-tag">#主办城市</span> <span class="label-tag">#裁判规则</span></p>
+            <p>这些内容并非核心数据库，而是作为背景知识补充。部分条目由志愿者整理，仅供参考。</p>
+        </div>
+    </div>
+
+    <!-- 额外说明 + 嵌入链接 (自然句) -->
+    <div class="card" style="margin-bottom: 2rem;">
+        <div class="card-title">关于持续更新</div>
+        <p style="margin-bottom: 0.6rem;">本知识库的定位是辅助性参考，不替代任何官方公告。如果你发现条目与最新信息存在出入，建议以<a href="https://site-united2026.com">世界杯</a>官网发布的内容为准。我们会定期比对并修订条目，但无法保证实时同步。</p>
+        <p style="margin-bottom: 0;">此外，部分历史数据因统计口径不同，可能存在细微差异。我们会在条目中标注数据来源的年份与版本，方便你自行核对。</p>
+    </div>
+
+    <!-- 底部区域 包括FAQ摘要及辅助信息 -->
+    <div class="footnote-block">
+        <div>
+            <span class="muted">查询索引：</span> 赛事阶段 · 参赛球队 · 历届冠军 · 主办城市 · 规则沿革
+        </div>
+        <div>
+            <span class="muted">资料基准：</span> 1970–2022 公开记录 · 部分条目含注释
+        </div>
+    </div>
+
+    <!-- 一个极简分隔 -->
+    <hr>
+
+    <!-- 最后一行 温和致谢与提示 -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; font-size: 0.85rem; color: #5a6f81; padding-bottom: 0.5rem;">
+        <span>内容仅用于日常对照与延伸阅读 · 非官方页面</span>
+        <span style="letter-spacing: 0.02em;">site-united2026 知识库 · 持续修订</span>
+    </div>
+
+</div>
+</body>
+</html>
